@@ -25,9 +25,3 @@ Everything is new to me. I am learning how GitHub works and how to organize proj
 Today was the first step of my AI journey.
 
 I know there is a lot to learn, but every expert started somewhere.
-
-### Next goals
-
-- Learn the basics of Git.
-- Create my first AI project.
-- 
