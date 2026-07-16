@@ -1,1 +1,11 @@
+{
+  "suit": "hearts",
+  "rank": "Ace",
+  "is_visible": true,
+  "bounding_box": [150, 300, 250, 450],
+  "table_context": {
+    "player_position": "Button",
+    "pot_odds_available": false
+  }
+}
 
