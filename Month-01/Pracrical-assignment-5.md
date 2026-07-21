@@ -1,28 +1,32 @@
-# Practical Assignment 5: Handling Missing Data (Error Prevention)
+# Practical Assignment 5: Building the API Request Module
 
 ## 🎯 Task Description
-AI models can sometimes hallucinate or fail to return the expected JSON structure. If the Python script attempts to access a missing key (like `"suit"`), it will trigger a `KeyError` and crash the entire automation loop. 
-The objective is to implement a safety mechanism to catch these errors so the script continues running smoothly even when the AI fails.
+The automation system requires a core script to physically transmit the captured card images to the AI server over the internet. The objective is to write the complete Python code block that imports the necessary network library, isolates the authorization headers from the payload, and executes the HTTP POST request.
 
-## 🛠️ Solution: Try/Except Block
-
-In Python, we use a `try / except` block. We tell the script to *try* extracting the data. If it encounters a `KeyError`, it will not crash. Instead, it will execute the fallback plan inside the *except* block (e.g., move the bad screenshot to an error folder and continue to the next one).
-
-### Python Code Implementation
+## 🛠️ Solution: Python `requests` Implementation
 
 ```python
-# The script receives an unpredictable response from the AI
-data = response.json()
+# 1. Import the standard library for making HTTP requests
+import requests
 
-try:
-    # 1. We TRY to extract the suit
-    detected_suit = data["suit"]
-    
-    # 2. If successful, we route the file
-    if detected_suit == "hearts":
-        print("Success: Moving to Hearts folder")
-        
-except KeyError:
-    # 3. If the "suit" key is completely missing, the script jumps here INSTEAD of crashing
-    print("Warning: AI failed to return the card suit.")
-    print("Action: Moving screenshot to 'recognition_errors' folder.")
+# 2. Define the Headers variable (Metadata and Security)
+my_headers = {
+    "Authorization": "Bearer YOUR_SECRET_API_KEY",
+    "Content-Type": "application/json"
+}
+
+# 3. Define the Body variable (Instructions and Data payload)
+my_body = {
+    "model": "vision-advanced-01",
+    "prompt": "Analyze this image and return the card suit and rank in strict JSON format.",
+    "image_base64": "iVBORw0KGgoAAAANSUhEUgAAAMgAA..." # Truncated for readability
+}
+
+# 4. Execute the POST request
+# We pass the URL, the headers box, and the json body box to the courier
+response = requests.post(
+    url="[https://api.vision-model-provider.com/v1/analyze](https://api.vision-model-provider.com/v1/analyze)",
+    headers=my_headers,
+    json=my_body
+)
+
